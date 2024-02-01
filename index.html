@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+    }
+    .button-container {
+      position: absolute;
+      top: 20px; /* Adjust this value based on your design */
+      left: 0;
+      width: 25%;
+      height: 50px; /* Adjust the height as needed */
+    }
+    .invisible-button {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="iframeContainer">
+    <iframe id="myIframe"></iframe>
+  </div>
+  
+  <div class="button-container">
+    <button id="invisibleButton" class="invisible-button" onclick="revealSecretContent()"></button>
+  </div>
+
+  <script>
+    // Function to get URL parameters
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    // Set the initial iframe source based on 'front' parameter
+    const frontWebsite = getParameterByName('front');
+    document.getElementById('myIframe').src = frontWebsite || "https://en.wikipedia.org/wiki/Main_Page";
+
+    // Set the page title based on 'title' parameter
+    const pageTitle = getParameterByName('title');
+    document.title = pageTitle || '⠀';
+
+    function revealSecretContent() {
+      const hideWebsite = getParameterByName('hide');
+      const redirectOption = getParameterByName('redirect');
+
+      if (hideWebsite) {
+        if (redirectOption === '1') {
+          window.location.href = hideWebsite;
+        } else {
+          document.getElementById('myIframe').src = hideWebsite;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
