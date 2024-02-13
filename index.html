@@ -77,7 +77,7 @@
         const redirectCheckbox = document.getElementById('redirectCheckbox');
         const redirectValue = redirectCheckbox.checked ? '1' : '0';
         
-        const formattedUrl = `https://xhide.samj.app/api/?front=${nameInput}&hide=${urlInput}&redirect=${redirectValue}`;
+        const formattedUrl = `https://xhide.samj.app/api?front=${nameInput}&hide=${urlInput}&redirect=${redirectValue}`;
         document.getElementById('formattedUrl').innerText = formattedUrl;
     }
 
