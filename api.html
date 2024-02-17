@@ -28,6 +28,36 @@
       cursor: pointer;
     }
   </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Customize name, icon, and URL based on parameters or use defaults
+            const appName = urlParams.get('name') || 'App Name';
+            const appIcon = urlParams.get('icon') || 'https://icon-library.com/images/app-icon-guidelines/app-icon-guidelines-1.jpg';
+
+            document.title = appName;
+
+            // Add manifest link dynamically
+            const manifestLink = document.createElement('link');
+            manifestLink.rel = 'manifest';
+            manifestLink.href = `data:application/manifest+json,${encodeURIComponent(JSON.stringify({
+                "name": appName,
+                "short_name": appName,
+                "start_url": "/",
+                "display": "standalone",
+                "icons": [
+                    {
+                        "src": appIcon,
+                        "sizes": "192x192",
+                        "type": "image/png"
+                    }
+                ],
+                // You can add more manifest properties here
+            }))}`;
+            document.head.appendChild(manifestLink);
+        });
+  </script>
 </head>
 <body>
   <div id="iframeContainer">
@@ -37,7 +67,6 @@
   <div class="button-container">
     <button id="invisibleButton" class="invisible-button" onclick="revealSecretContent()"></button>
   </div>
-
   <script>
     // Function to get URL parameters
     function getParameterByName(name, url) {
